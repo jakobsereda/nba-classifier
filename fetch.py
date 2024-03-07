@@ -44,7 +44,7 @@ def fetch(path: str, count: int = -1):
 
     ids[:count].map(get_player_career)
     df = pd.DataFrame(results)
-    df.to_csv(path)
+    df.to_csv(path, index=False)
     with open("errors.json", "w") as f:
         f.write(json.dumps(errors))
         f.close()
