@@ -16,6 +16,7 @@ errors = []
 def fetch(path: str, count: int = -1):
     if count == -1:
         count = len(ids)
+    start_time = time.time()
 
     def parse_results(info, career):
         d = {}
@@ -30,7 +31,10 @@ def fetch(path: str, count: int = -1):
 
     def get_player_career(id: int):
         global i, result
-        print(f"[{'=' * int(50 * i / count)}{' ' * int(50 * (1 - (i / count)))}] {i}/{count}: {id}...        ", end="\r")
+        curr_time = time.time()
+        elapsed = curr_time - start_time
+        remaining = int(elapsed / i * (count - i)) if i > 0 else 0
+        print(f"[{'=' * int(50 * i / count)}{' ' * int(50 * (1 - (i / count)))}] {i}/{count}: {id} | Elapsed: {int(elapsed) // 60}m{int(elapsed) % 60}s | Remaining: ~{remaining // 60}m{remaining % 60}s        ", end="\r")
         # print(f"Fetching {i}/{count} - {id}.....       \n[{'=' * int(50 * i / count)}{' ' * int(50 * (1 - (i / count)))}]", end="\r")
         i += 1
         time.sleep(0.5)
